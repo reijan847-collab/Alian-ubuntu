@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paradise - Sand and Sea Seekers</title>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Video Background */
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0;
+            animation: fadeInVideo 2s ease-in forwards;
+        }
+
+        @keyframes fadeInVideo {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Overlay for readability */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            width: 100%;
+            max-width: 1300px;
+            height: 90px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Menu section */
+        .menu {
+            flex: 1; /* Menu takes less space */
+        }
+
+        .menu ul {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 30px; /* Reduced gap between menu items */
+        }
+
+        .menu ul li {
+            list-style: none;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .menu ul li a {
+            position: relative;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: color 0.3s ease, transform 0.2s ease, background 0.2s ease;
+        }
+
+        .menu ul li a i {
+            color: #00ff88;
+            transition: 0.3s;
+        }
+
+        /* Hover shake effect */
+        @keyframes shake {
+            0%, 100% { transform: translate(0, 0); }
+            20% { transform: translate(-2px, 0); }
+            40% { transform: translate(2px, 0); }
+            60% { transform: translate(-2px, 0); }
+            80% { transform: translate(2px, 0); }
+        }
+
+        .menu ul li a:hover {
+            color: #00ff88;
+            animation: shake 0.4s;
+        }
+
+        .menu ul li a:hover i {
+            color: #ffffff;
+        }
+
+        /* Click transition effect */
+        .menu ul li a:active {
+            background: rgba(0, 255, 136, 0.2); /* Soft flash on click */
+            color: #00ff88;
+            transform: scale(0.95); /* Button press effect */
+        }
+
+        /* Search bar section */
+        .search {
+            margin-left: 50px; /* Gap between menu and search */
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .srch {
+            font-family: 'Times New Roman', serif;
+            width: 200px;
+            height: 40px;
+            background: transparent;
+            border: 2px solid #00ff88;
+            color: #ffffff;
+            font-size: 16px;
+            padding: 10px;
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+            border-right: none;
+        }
+
+        .srch:focus {
+            outline: none;
+        }
+
+        .btn {
+            width: 80px;
+            height: 40px;
+            background: #00ff88;
+            border: 2px solid #00e676;
+            color: #000000;
+            font-size: 17px;
+            border-bottom-right-radius: 20px;
+            border-top-right-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+        }
+
+        .btn:hover {
+            background: #ffffff;
+        }
+
+        /* Hero content section */
+        .content {
+            width: 1200px;
+            margin: 120px auto;
+            color: white;
+            text-align: left;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+        }
+
+        .content h1 {
+            font-family: 'Times New Roman', serif;
+            font-size: 60px;
+            color: #34fb87;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+
+        .content .par {
+            color: #ffffff;
+            line-height: 24px;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .content .cn {
+            width: 160px;
+            height: 40px;
+            background: #00ff55;
+            border: none;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .content .cn a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        .cn:hover {
+            background: white;
+            transform: scale(1.05);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 900px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+                height: auto;
+                gap: 15px;
+            }
+
+            .menu ul {
+                flex-wrap: wrap;
+                gap: 25px;
+                justify-content: center;
+            }
+
+            .search {
+                margin-left: 0; /* Remove left margin on smaller screens */
+            }
+
+            .content {
+                width: 90%;
+                text-align: center;
+            }
+
+            .content h1 {
+                font-size: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <video autoplay muted loop playsinline class="video-bg">
+        <source src="bea.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="overlay"></div>
+
+    <!-- Navigation Bar -->
+    <div class="main">
+        <div class="navbar">
+            <div class="menu">
+                <ul>
+                    <li><a href="index.html"><i class="fa-solid fa-house"></i>Home</a></li>
+                    <li><a href="beach.html"><i class="fa-solid fa-umbrella-beach"></i>Beaches</a></li>
+                    <li><a href="gallery.html"><i class="fa-solid fa-images"></i>Gallery</a></li>
+                    <li><a href="activity.html"><i class="fa-solid fa-person-swimming"></i>Activities</a></li>
+                    <li><a href="about.html"><i class="fa-solid fa-info-circle"></i>About Us</a></li>
+                </ul>
+            </div>
+
+            <div class="search">
+                <form action="https://www.google.com/search" method="get" class="searchbar">
+                    <input class="srch" type="search" name="q" placeholder="Type to search">
+                    <button class="btn" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h1>Welcome to<br><span>Paradise!<br>Sand and Sea Seekers!</span></h1>
+        <p class="par">
+            Step onto our shores and leave the world behind.<br>
+            We invite you to experience the magic of our beaches,<br>
+            where soft sand meets crystal-clear water. Whether you're seeking relaxation,<br>
+            adventure, or quality time with loved ones, you'll find it here.<br>
+            Welcome to your happy place!
+        </p>
+        <button class="cn"><a href="join.html">JOIN US</a></button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paradise - Sand and Sea Seekers Gallery</title>
+
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Video Background */
+.video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    opacity: 0;
+    animation: fadeInVideo 2s ease-in forwards;
+    filter: blur(4px);
+}
+
+@keyframes fadeInVideo {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    z-index: -1;
+}
+
+/* Navbar */
+.navbar {
+    width: 100%;
+    max-width: 1300px;
+    height: 90px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    position: relative;
+    z-index: 10;
+}
+
+.menu { flex: 1; }
+.menu ul { display: flex; gap: 30px; }
+.menu ul li { list-style: none; font-size: 24px; display: flex; align-items: center; gap: 4px; }
+.menu ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: color 0.3s ease, transform 0.2s ease, background 0.2s ease;
+}
+.menu ul li a i { color: #00ff88; transition: 0.3s; }
+
+@keyframes shake {
+    0%,100%{ transform: translate(0,0); }
+    20%{ transform: translate(-2px,0); }
+    40%{ transform: translate(2px,0); }
+    60%{ transform: translate(-2px,0); }
+    80%{ transform: translate(2px,0); }
+}
+.menu ul li a:hover { color: #00ff88; animation: shake 0.4s; }
+.menu ul li a:hover i { color: #ffffff; }
+.menu ul li a:active { background: rgba(0,255,136,0.2); color:#00ff88; transform: scale(0.95); }
+
+/* Search bar */
+.search { margin-left: 50px; display:flex; align-items:center; gap:7px; }
+.srch {
+    font-family: 'Times New Roman', serif;
+    width: 200px; height: 40px; background: transparent;
+    border: 2px solid #00ff88; color: #ffffff; font-size: 16px; padding: 10px;
+    border-bottom-left-radius: 5px; border-top-left-radius: 5px; border-right: none;
+}
+.srch:focus { outline: none; }
+.btn {
+    width: 80px; height: 40px; background: #00ff88; border: 2px solid #00e676;
+    color: #000000; font-size: 17px; border-bottom-right-radius: 20px; border-top-right-radius: 5px;
+    cursor: pointer; transition: 0.3s ease-in-out;
+}
+.btn:hover { background: #ffffff; }
+
+/* Carousel Infinite Loop */
+.carousel-container {
+    position: relative;
+    max-width: 900px;
+    margin: 120px auto 40px auto;
+    overflow: hidden;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.2);
+}
+
+.carousel-track {
+    display: flex;
+    width: max-content;
+    animation: scroll 20s linear infinite;
+}
+
+.carousel-slide {
+    min-width: 300px;
+    margin: 0 10px;
+    flex-shrink: 0;
+    border: 4px solid #00ff88;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,255,136,0.5);
+    background: #000;
+}
+
+.carousel-slide img {
+    width: 100%;
+    display: block;
+}
+
+.description {
+    color: #fff;
+    text-align: center;
+    padding: 8px;
+    font-size: 14px;
+}
+
+/* Animation for infinite loop */
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .carousel-slide { min-width: 200px; }
+}
+@media (max-width: 480px) {
+    .carousel-slide { min-width: 150px; }
+}
+</style>
+</head>
+<body>
+<!-- Video Background -->
+<video autoplay muted loop playsinline class="video-bg">
+    <source src="bea.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+<div class="overlay"></div>
+
+<!-- Navigation Bar -->
+<div class="main">
+    <div class="navbar">
+        <div class="menu">
+            <ul>
+                <li><a href="index.html"><i class="fa-solid fa-house"></i>Home</a></li>
+                <li><a href="beach.html"><i class="fa-solid fa-umbrella-beach"></i>Beaches</a></li>
+                <li><a href="gallery.html"><i class="fa-solid fa-images"></i>Gallery</a></li>
+                <li><a href="activity.html"><i class="fa-solid fa-person-swimming"></i>Activities</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-info-circle"></i>About Us</a></li>
+            </ul>
+        </div>
+
+        <div class="search">
+            <form action="https://www.google.com/search" method="get" class="searchbar">
+                <input class="srch" type="search" name="q" placeholder="Type to search">
+                <button class="btn" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Carousel Section -->
+<div class="carousel-container">
+    <div class="carousel-track" id="carousel-track">
+        <div class="carousel-slide"><img src="palawan.jpg" alt="Palawan"><div class="description">Palawan – Crystal-clear waters, limestone cliffs.</div></div>
+        <div class="carousel-slide"><img src="boracay.jpg" alt="Boracay"><div class="description">Boracay – White sand, vibrant nightlife.</div></div>
+        <div class="carousel-slide"><img src="siargao.jpg" alt="Siargao"><div class="description">Siargao – Surfing paradise and lagoons.</div></div>
+        <div class="carousel-slide"><img src="el_nido.jpg" alt="El Nido"><div class="description">El Nido – Stunning limestone cliffs.</div></div>
+        <div class="carousel-slide"><img src="coron.jpg" alt="Coron"><div class="description">Coron – Shipwreck diving and lakes.</div></div>
+        <div class="carousel-slide"><img src="malapascua.jpg" alt="Malapascua"><div class="description">Malapascua – Diving spots and serene beaches.</div></div>
+        <div class="carousel-slide"><img src="camiguin.jpg" alt="Camiguin"><div class="description">Camiguin – White sand beaches and waterfalls.</div></div>
+        <div class="carousel-slide"><img src="panglao.jpg" alt="Panglao"><div class="description">Panglao – Snorkeling and diving paradise.</div></div>
+        <div class="carousel-slide"><img src="moalboal.jpg" alt="Moalboal"><div class="description">Moalboal – Sardine run and coral reefs.</div></div>
+        <div class="carousel-slide"><img src="camotes.jpg" alt="Camotes"><div class="description">Camotes – Tranquil beaches and nature.</div></div>
+        <!-- Clone slides for seamless loop -->
+        <div class="carousel-slide"><img src="palawan.jpg" alt="Palawan"><div class="description">Palawan – Crystal-clear waters, limestone cliffs.</div></div>
+        <div class="carousel-slide"><img src="boracay.jpg" alt="Boracay"><div class="description">Boracay – White sand, vibrant nightlife.</div></div>
+        <div class="carousel-slide"><img src="siargao.jpg" alt="Siargao"><div class="description">Siargao – Surfing paradise and lagoons.</div></div>
+        <div class="carousel-slide"><img src="el_nido.jpg" alt="El Nido"><div class="description">El Nido – Stunning limestone cliffs.</div></div>
+        <div class="carousel-slide"><img src="coron.jpg" alt="Coron"><div class="description">Coron – Shipwreck diving and lakes.</div></div>
+        <div class="carousel-slide"><img src="malapascua.jpg" alt="Malapascua"><div class="description">Malapascua – Diving spots and serene beaches.</div></div>
+        <div class="carousel-slide"><img src="camiguin.jpg" alt="Camiguin"><div class="description">Camiguin – White sand beaches and waterfalls.</div></div>
+        <div class="carousel-slide"><img src="panglao.jpg" alt="Panglao"><div class="description">Panglao – Snorkeling and diving paradise.</div></div>
+        <div class="carousel-slide"><img src="moalboal.jpg" alt="Moalboal"><div class="description">Moalboal – Sardine run and coral reefs.</div></div>
+        <div class="carousel-slide"><img src="camotes.jpg" alt="Camotes"><div class="description">Camotes – Tranquil beaches and nature.</div></div>
+    </div>
+</div>
+</body>
+</html>

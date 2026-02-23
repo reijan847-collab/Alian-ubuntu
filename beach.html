@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paradise - Sand and Sea Seekers Gallery</title>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Video Background */
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0;
+            animation: fadeInVideo 2s ease-in forwards;
+        }
+
+        @keyframes fadeInVideo {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Overlay for readability */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
+        }
+
+        /* Navbar */
+        .navbar {
+            width: 100%;
+            max-width: 1300px;
+            height: 90px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .menu { flex: 1; }
+
+        .menu ul {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .menu ul li {
+            list-style: none;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .menu ul li a {
+            position: relative;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: color 0.3s ease, transform 0.2s ease, background 0.2s ease;
+        }
+
+        .menu ul li a i { color: #00ff88; transition: 0.3s; }
+
+        @keyframes shake {
+            0%, 100% { transform: translate(0, 0); }
+            20% { transform: translate(-2px, 0); }
+            40% { transform: translate(2px, 0); }
+            60% { transform: translate(-2px, 0); }
+            80% { transform: translate(2px, 0); }
+        }
+
+        .menu ul li a:hover {
+            color: #00ff88;
+            animation: shake 0.4s;
+        }
+
+        .menu ul li a:hover i { color: #ffffff; }
+
+        .menu ul li a:active {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            transform: scale(0.95);
+        }
+
+        /* Search bar */
+        .search {
+            margin-left: 50px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .srch {
+            font-family: 'Times New Roman', serif;
+            width: 200px;
+            height: 40px;
+            background: transparent;
+            border: 2px solid #00ff88;
+            color: #ffffff;
+            font-size: 16px;
+            padding: 10px;
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+            border-right: none;
+        }
+
+        .srch:focus { outline: none; }
+
+        .btn {
+            width: 80px;
+            height: 40px;
+            background: #00ff88;
+            border: 2px solid #00e676;
+            color: #000000;
+            font-size: 17px;
+            border-bottom-right-radius: 20px;
+            border-top-right-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+        }
+
+        .btn:hover { background: #ffffff; }
+
+        /* Gallery Section */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            padding: 120px 20px 40px 20px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .gallery-item {
+            flex: 1 1 300px;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 4px solid #00ff88;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
+            transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
+        }
+
+        .gallery-item img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(0, 255, 136, 1);
+            border-color: #ffffff;
+        }
+
+        .gallery-item div.description {
+            margin-top: 10px;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: normal;
+            line-height: 1.4;
+        }
+
+        /* Star Ratings */
+        .stars {
+            margin-top: 5px;
+        }
+
+        .stars i {
+            color: gray;
+            font-size: 22px;
+            margin: 0 2px;
+            cursor: pointer;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        .stars i.hover,
+        .stars i.selected {
+            color: gold;
+            text-shadow: 0 0 5px gold, 0 0 10px gold;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .gallery {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                gap: 20px;
+                padding: 100px 10px 20px 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-item {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <video autoplay muted loop playsinline class="video-bg">
+        <source src="bea.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="overlay"></div>
+
+    <!-- Navigation Bar -->
+    <div class="main">
+        <div class="navbar">
+            <div class="menu">
+                <ul>
+                    <li><a href="index.html"><i class="fa-solid fa-house"></i>Home</a></li>
+                    <li><a href="beach.html"><i class="fa-solid fa-umbrella-beach"></i>Beaches</a></li>
+                    <li><a href="gallery.html"><i class="fa-solid fa-images"></i>Gallery</a></li>
+                    <li><a href="activity.html"><i class="fa-solid fa-person-swimming"></i>Activities</a></li>
+                    <li><a href="about.html"><i class="fa-solid fa-info-circle"></i>About Us</a></li>
+                </ul>
+            </div>
+
+            <div class="search">
+                <form action="https://www.google.com/search" method="get" class="searchbar">
+                    <input class="srch" type="search" name="q" placeholder="Type to search">
+                    <button class="btn" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div class="gallery">
+        <div class="gallery-item">
+            <img src="palawan.jpg" alt="Palawan Beach">
+            <div class="description">
+                Palawan – Famous for its crystal-clear waters, majestic limestone cliffs, and hidden lagoons.  
+                Ideal for snorkeling, kayaking, and discovering untouched natural beauty.
+            </div>
+            <div class="stars" data-rating="0">
+                <i class="fas fa-star" data-value="1"></i>
+                <i class="fas fa-star" data-value="2"></i>
+                <i class="fas fa-star" data-value="3"></i>
+                <i class="fas fa-star" data-value="4"></i>
+                <i class="fas fa-star" data-value="5"></i>
+            </div>
+        </div>
+        <div class="gallery-item">
+            <img src="boracay.jpg" alt="Boracay Beach">
+            <div class="description">
+                Boracay – Known for its powdery white sand, vibrant nightlife, and water sports.  
+                Perfect for sunbathing, island hopping, or enjoying fresh seafood by the shore.
+            </div>
+            <div class="stars" data-rating="0">
+                <i class="fas fa-star" data-value="1"></i>
+                <i class="fas fa-star" data-value="2"></i>
+                <i class="fas fa-star" data-value="3"></i>
+                <i class="fas fa-star" data-value="4"></i>
+                <i class="fas fa-star" data-value="5"></i>
+            </div>
+        </div>
+        <div class="gallery-item">
+            <img src="siargao.jpg" alt="Siargao Beach">
+            <div class="description">
+                Siargao – Surfing paradise with laid-back vibes, palm-fringed beaches, and lagoons.  
+                Great for surfing enthusiasts, exploring islands, and relaxing in a serene tropical setting.
+            </div>
+            <div class="stars" data-rating="0">
+                <i class="fas fa-star" data-value="1"></i>
+                <i class="fas fa-star" data-value="2"></i>
+                <i class="fas fa-star" data-value="3"></i>
+                <i class="fas fa-star" data-value="4"></i>
+                <i class="fas fa-star" data-value="5"></i>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Interactive star rating
+        document.querySelectorAll('.stars').forEach(starContainer => {
+            const stars = starContainer.querySelectorAll('i');
+            stars.forEach(star => {
+                star.addEventListener('mouseover', () => {
+                    stars.forEach(s => s.classList.remove('hover'));
+                    let val = star.dataset.value;
+                    for (let i = 0; i < val; i++) {
+                        stars[i].classList.add('hover');
+                    }
+                });
+
+                star.addEventListener('mouseout', () => {
+                    stars.forEach(s => s.classList.remove('hover'));
+                });
+
+                star.addEventListener('click', () => {
+                    let val = star.dataset.value;
+                    starContainer.dataset.rating = val;
+                    stars.forEach(s => s.classList.remove('selected'));
+                    for (let i = 0; i < val; i++) {
+                        stars[i].classList.add('selected');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
